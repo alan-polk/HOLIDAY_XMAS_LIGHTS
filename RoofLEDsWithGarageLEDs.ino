@@ -1,7 +1,7 @@
 #include "FastLED.h"
 // Number of RGB LEDs in each strands
 #define NUM_LEDS_ROOF 350
-#define NUM_LEDS_GARAGE 150
+#define NUM_LEDS_GARAGE 160
 // Arduino pin for data to LED strips
 #define LED_Pin_ROOF 8
 #define LED_Pin_GARAGE 9
