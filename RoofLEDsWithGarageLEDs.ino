@@ -9,6 +9,8 @@
 #define XMAS_Pin 2
 bool XMAS;
 bool XMAS_OLD;
+bool CHANGED;
+bool INIT;
 // Define the array of leds
 CRGB ledsROOF[NUM_LEDS_ROOF];
 CRGB ledsGARAGE[NUM_LEDS_GARAGE];
@@ -27,23 +29,33 @@ void loop()
   XMAS_OLD = XMAS;
   XMAS = !digitalRead(XMAS_Pin);
 //If the toggle switch changed, clear all the lights to prepare for new display
-  if(XMAS != XMAS_OLD)
+  if((XMAS != XMAS_OLD) or (INIT == 0))
   {
+      CHANGED = 1;
+      INIT = 1;
       ClearLEDs();
   }
-//If toggle switch is set to XMAS, run the roof and garage subroutines  
-  if(XMAS == 0)
-  {
-    XMAS_ROOF_Subroutine();
-    XMAS_GARAGE_Subroutine();
-  }
-//If the toggle switch is set to AMBIENT, run the roof and garage subroutines
   else
   {
-    AMBIENT_ROOF_Subroutine();
-    AMBIENT_GARAGE_Subroutine();  
+    CHANGED = 0;
   }
-
+ //If toggle switch is moved then check to set to XMAS or ambient, run the roof and garage subroutines  
+  if (CHANGED == 1)
+  {
+    if(XMAS == 0)
+    {
+      INIT = 1;
+      XMAS_ROOF_Subroutine();
+      XMAS_GARAGE_Subroutine();
+    }
+//If the toggle switch is set to AMBIENT, run the roof and garage subroutines
+    else
+    {
+      INIT == 1;
+      AMBIENT_ROOF_Subroutine();
+      AMBIENT_GARAGE_Subroutine();  
+    }
+  }
   FastLED.show();
   delay(5000);
 }
