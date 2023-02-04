@@ -1,3 +1,5 @@
+//Updated 02.04.2023 (New 24v Lights)
+
 #include "FastLED.h"
 // Number of RGB LEDs in each strands
 #define NUM_LEDS_ROOF 350
@@ -17,7 +19,7 @@ CRGB ledsGARAGE[NUM_LEDS_GARAGE];
 
 void setup()
 {
-  FastLED.addLeds<WS2812B, LED_Pin_ROOF, BRG>(ledsROOF, NUM_LEDS_ROOF);
+  FastLED.addLeds<WS2811, LED_Pin_ROOF, RGB>(ledsROOF, NUM_LEDS_ROOF);
   FastLED.setTemperature(0xFF8029); //Seems to give the best white, not too purple or yellow
   pinMode(XMAS_Pin, INPUT_PULLUP);
   ClearLEDs();
@@ -25,7 +27,7 @@ void setup()
 
 void loop() 
 {
-//Trap the Mode setting from last scan adn then Read the Mode Pin from the Arduino
+//Trap the Mode setting from last scan and then Read the Mode Pin from the Arduino
   XMAS_OLD = XMAS;
   XMAS = !digitalRead(XMAS_Pin);
 //If the toggle switch changed, clear all the lights to prepare for new display
@@ -63,11 +65,11 @@ void loop()
 void ClearLEDs()
 {
 //Clear the roof LEDS
-  FastLED.addLeds<WS2812B, LED_Pin_ROOF, BRG>(ledsROOF, NUM_LEDS_ROOF);
+  FastLED.addLeds<WS2811, LED_Pin_ROOF, RGB>(ledsROOF, NUM_LEDS_ROOF);
   FastLED.setTemperature(0xFF8029);
   FastLED.clear();
 //Clear the garage LEDS
-  FastLED.addLeds<WS2812B, LED_Pin_GARAGE, BRG>(ledsGARAGE, NUM_LEDS_GARAGE);
+  FastLED.addLeds<WS2811, LED_Pin_GARAGE, RGB>(ledsGARAGE, NUM_LEDS_GARAGE);
   FastLED.setTemperature(0xFF8029);
   FastLED.clear();
 
@@ -75,7 +77,7 @@ void ClearLEDs()
   
 void XMAS_ROOF_Subroutine()
 {
-  FastLED.addLeds<WS2812B, LED_Pin_ROOF, BRG>(ledsROOF, NUM_LEDS_ROOF);
+  FastLED.addLeds<WS2811, LED_Pin_ROOF, RGB>(ledsROOF, NUM_LEDS_ROOF);
   FastLED.setTemperature(0xFF8029);
 
   for(int i = 0; i< NUM_LEDS_ROOF; i=i+4) 
@@ -92,7 +94,7 @@ void XMAS_ROOF_Subroutine()
 
 void XMAS_GARAGE_Subroutine()
 {
-  FastLED.addLeds<WS2812B, LED_Pin_GARAGE, BRG>(ledsGARAGE, NUM_LEDS_GARAGE);
+  FastLED.addLeds<WS2811, LED_Pin_GARAGE, RGB>(ledsGARAGE, NUM_LEDS_GARAGE);
   FastLED.setTemperature(0xFF8029);
 
   for(int i = 0; i< NUM_LEDS_GARAGE; i=i+4) 
@@ -109,7 +111,7 @@ void XMAS_GARAGE_Subroutine()
 
 void AMBIENT_ROOF_Subroutine()
 {
-  FastLED.addLeds<WS2812B, LED_Pin_ROOF, BRG>(ledsROOF, NUM_LEDS_ROOF);
+  FastLED.addLeds<WS2811, LED_Pin_ROOF, RGB>(ledsROOF, NUM_LEDS_ROOF);
   FastLED.setTemperature(0xFF8029);
     
   for(int i = 0; i< NUM_LEDS_ROOF; i=i+1) 
@@ -121,7 +123,7 @@ void AMBIENT_ROOF_Subroutine()
 
 void AMBIENT_GARAGE_Subroutine()
 {
-  FastLED.addLeds<WS2812B, LED_Pin_GARAGE, BRG>(ledsGARAGE, NUM_LEDS_GARAGE);
+  FastLED.addLeds<WS2811, LED_Pin_GARAGE, RGB>(ledsGARAGE, NUM_LEDS_GARAGE);
   FastLED.setTemperature(0xFF8029);
 
   for(int i = 0; i< NUM_LEDS_GARAGE; i=i+99) 
