@@ -1,12 +1,12 @@
-//Updated 02.04.2023 (New 24v Lights)
+//Updated 11.19.2023 (New 24v Lights installed and debugged)
 
 #include "FastLED.h"
 // Number of RGB LEDs in each strands
 #define NUM_LEDS_ROOF 350
-#define NUM_LEDS_GARAGE 160
+#define NUM_LEDS_GARAGE 350
 // Arduino pin for data to LED strips
 #define LED_Pin_ROOF 8
-#define LED_Pin_GARAGE 9
+#define LED_Pin_GARAGE 10
 // Arduino pin to toggle between Xmas and Ambient Lighting
 #define XMAS_Pin 2
 bool XMAS;
@@ -49,6 +49,7 @@ void loop()
       INIT = 1;
       XMAS_ROOF_Subroutine();
       XMAS_GARAGE_Subroutine();
+      FastLED.show();
     }
 //If the toggle switch is set to AMBIENT, run the roof and garage subroutines
     else
@@ -56,10 +57,10 @@ void loop()
       INIT == 1;
       AMBIENT_ROOF_Subroutine();
       AMBIENT_GARAGE_Subroutine();  
+      FastLED.show();
     }
   }
-  FastLED.show();
-  delay(5000);
+   delay(5000);
 }
 
 void ClearLEDs()
